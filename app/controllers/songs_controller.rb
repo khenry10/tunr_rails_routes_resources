@@ -1,45 +1,52 @@
 class SongsController < ApplicationController
   # index
   def index
-    @songs = Song.all
+    @artist = Artist.find(params[:artist_id])
+    @songs = @artist.songs.all
   end
 
   # new
   def new
+    @artist = Artist.find(params[:artist_id])
     @song = Song.new
   end
 
   # create
   def create
-    @song = Song.create(song_params)
+    @artist = Artist.find(params[:artist_id])
+    @song = @artist.songs.create(song_params)
 
-    redirect_to songs_path(@song)
+    redirect_to artist_songs_path(@artist, @song)
   end
 
   #show
   def show
+    @artist = Artist.find(params[:artist_id])
     @song = Song.find(params[:id])
   end
 
   # edit
   def edit
+    @artist = Artist.find(params[:artist_id])
     @song = Song.find(params[:id])
   end
 
   # update
   def update
+    @artist = Artist.find(params[:artist_id])
     @song = Song.find(params[:id])
     @song.update(song_params)
 
-    redirect_to songs_path(@song)
+    redirect_to artist_songs_path(@artist, @song)
   end
 
   # destroy
   def destroy
+    @artist = Artist.find(params[:artist_id])
     @song = Song.find(params[:id])
     @song.destroy
 
-    redirect_to songs_path
+    redirect_to artist_songs_path( @artist )
   end
 
   private
