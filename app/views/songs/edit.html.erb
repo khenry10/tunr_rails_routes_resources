@@ -1,6 +1,6 @@
 <h2>Edit Song</h2>
 
-<%= form_for @song do |f| %>
+<%= form_for [@song.artist, @song] do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
 
